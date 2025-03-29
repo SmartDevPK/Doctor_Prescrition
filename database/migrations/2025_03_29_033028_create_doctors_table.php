@@ -10,11 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('product', function (Blueprint $table) {
+        Schema::create('doctors', function (Blueprint $table) {
             $table->id();
-            $table->string("name", length: 100);
-            $table->text("description")->nullable();
-            $table->decimal('size', total: 8, places: 3)->default(0);
+            $table->foreignId('user_id')->constrained();
+            $table->string('specialization');
+            $table->string('license_number')->unique();
+            $table->text('qualifications');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('product');
+        Schema::dropIfExists('doctors');
     }
 };
